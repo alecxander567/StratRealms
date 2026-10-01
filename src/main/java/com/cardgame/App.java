@@ -602,9 +602,9 @@ public class App extends Application {
                 gameLayout.setContent(screen.getRoot());
             }
             case HOW_TO_PLAY ->
-                gameLayout.setContent(
-                        new HowToPlayScreen(gameLayout.getContentArea(), playerRace).getRoot()
-                );
+                    gameLayout.setContent(
+                            new HowToPlayScreen(gameLayout.getContentArea(), playerRace).getRoot()
+                    );
             case STRATEGIES -> {
                 StrategyScreen screen = new StrategyScreen(
                         gameLayout.getContentArea(),
@@ -615,9 +615,9 @@ public class App extends Application {
                 gameLayout.setContent(screen.getRoot());
             }
             case ARENA ->
-                gameLayout.setContent(
-                        new PlaceholderScreen(gameLayout.getContentArea(), "Arena", "Coming soon! Battle mode is under development.").getRoot()
-                );
+                    gameLayout.setContent(
+                            new PlaceholderScreen(gameLayout.getContentArea(), "Arena", "Coming soon! Battle mode is under development.").getRoot()
+                    );
             case OPTIONS -> { /* handled in onNavigate before navigateTo */ }
             case EXIT -> { }
         }
@@ -722,11 +722,12 @@ public class App extends Application {
 
         scene.setRoot(currentBattleScreen.getRoot());
 
-        countdownModal.showCountdown(playerSide, enemyRace, () -> {
-            if (currentBattleScreen != null) {
-                currentBattleScreen.startTimer();
-            }
-        });
+        countdownModal.showCountdown(currentBattleScreen.getModalLayer(),
+                playerSide, enemyRace, () -> {
+                    if (currentBattleScreen != null) {
+                        currentBattleScreen.startTimer();
+                    }
+                });
     }
 
     private void restartBattle() {
@@ -756,11 +757,12 @@ public class App extends Application {
 
         scene.setRoot(currentBattleScreen.getRoot());
 
-        countdownModal.showCountdown(currentPlayerSide, currentEnemyRace, () -> {
-            if (currentBattleScreen != null) {
-                currentBattleScreen.startTimer();
-            }
-        });
+        countdownModal.showCountdown(currentBattleScreen.getModalLayer(),
+                currentPlayerSide, currentEnemyRace, () -> {
+                    if (currentBattleScreen != null) {
+                        currentBattleScreen.startTimer();
+                    }
+                });
     }
 
     private void showLoadGameScreen() {
@@ -876,7 +878,7 @@ public class App extends Application {
     private boolean confirmExit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(stage);
-        alert.setTitle("Exit Realm of Cards");
+        alert.setTitle("Exit StratRealms");
         alert.setHeaderText("Leave the tavern?");
         alert.setContentText("Are you sure you want to exit? Any unsaved progress will be lost.");
         alert.setGraphic(null);
